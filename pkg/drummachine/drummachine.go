@@ -18,7 +18,6 @@ type Synth struct {
 	synth  fluidsynth2.Synth
 	driver fluidsynth2.AudioDriver
 	Kit
-	// Sequencer *fluidsynth2
 }
 
 type Kit interface {
@@ -43,7 +42,6 @@ func GetKit(name string) (Kit, error) {
 		return &kits.EightOhEight{}, nil
 	// case nineohnine.KitName:
 	// 	return &nineohnine.NineOhNine{}, nil
-
 	default:
 		return &kits.EightOhEight{}, nil
 	}
@@ -96,19 +94,11 @@ func (s *Synth) SetupInstrument(ctx context.Context) error {
 	endCh := make(chan error)
 	defer close(endCh)
 
-	// uiEvents := s.Kit.PollEvents()
-
-	// if err := s.Kit.Render(); err != nil {
-	// 	return errors.Wrap(err, fmt.Sprintf("failed to render kit"))
-	// }
-	// defer s.Kit.Close()
-
 	go func() {
 		for {
 			key, err := tty.ReadRune()
 			if err != nil {
 				//TODO do something better than this
-				fmt.Println("panic")
 				panic(err)
 			}
 
@@ -117,18 +107,13 @@ func (s *Synth) SetupInstrument(ctx context.Context) error {
 				s.synth.NoteOn(note.Channel, note.Note, note.Velocity)
 			}
 
-			// e := <-uiEvents
-			// switch e.ID {
-			// case "q", "<C-c>":
-			// 	return nil
-			// }
 		}
 	}()
 
 	switch <-endCh {
 	case nil:
-		close(endCh)
-		break
+		fmt.Println("close")
+		// close(endCh)
 	default:
 		return <-endCh
 	}
@@ -152,7 +137,7 @@ func (s *Synth) switchKey(ctx context.Context, key rune, ch chan error) *midi.No
 		return s.TomHigh()
 	case 121:
 		return s.TomLow()
-	case 3:
+	case 3: //ctrl-c
 		//TODO cancel context here
 		ch <- nil
 	default:

@@ -13,7 +13,10 @@ const title = ` #######    #####    #######
  #######  ##     ##  #######  
 ##     ## ##     ## ##     ## 
 ##     ##  ##   ##  ##     ## 
- #######    #####    #######  `
+ #######    #####    #######  
+ 
+ press ctrl+c to exit
+ `
 
 type EightOhEight struct {
 }
@@ -42,7 +45,7 @@ func (s *EightOhEight) Render() error {
 
 	titleUI = widgets.NewParagraph()
 	titleUI.Text = title
-	titleUI.SetRect(0, 0, 150, 9)
+	titleUI.SetRect(0, 0, 150, 12)
 	titleUI.TextStyle.Fg = ui.ColorWhite
 	titleUI.Border = false
 
