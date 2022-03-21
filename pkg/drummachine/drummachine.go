@@ -141,12 +141,7 @@ func (s *Synth) switchKey(ctx context.Context, key rune, ch chan error) *midi.No
 		//TODO cancel context here
 		ch <- nil
 	default:
-		fmt.Println(key)
-		// if keybind.IsPrintable(key) {
-		// 	fmt.Printf("%c\n", key)
-		// } else {
-		// 	fmt.Printf("Ctrl+%c\n", '@'+key)
-		// }
+		// fmt.Println(key)
 	}
 	return nil
 }
