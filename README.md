@@ -1,5 +1,6 @@
-# Drum machine running on terminal
-A drum machine written in Go making use of fluidsynth
+# go-drum-machine
+Drum machine running on a terminal written in Go.
+This project uses fluidsynth.
 ## Installation
 Install `fluidsynth` before building the project.
 
